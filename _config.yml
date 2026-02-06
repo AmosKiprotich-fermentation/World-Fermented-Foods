@@ -1,0 +1,20 @@
+title: World Fermented Foods
+description: >
+  An open, curated global database of traditional fermented foods,
+  their substrates, fermentation types, and associated microbiota.
+
+author: Amos Bett
+
+theme: minima
+
+collections:
+  foods:
+    output: true
+    permalink: /foods/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: foods
+    values:
+      layout: page
