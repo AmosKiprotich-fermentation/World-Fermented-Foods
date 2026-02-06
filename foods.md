@@ -8,5 +8,5 @@ title: Fermented Foods
 {% assign sorted_foods = site.foods | sort: "title" %}
 
 {% for food in sorted_foods %}
-- [{{ food.title }}]({{ food.url }}) — *{{ food.continent }}* ({{ food.substrate_category }}, {{ food.fermentation_type }})
+- [{{ food.title }}]({{ site.baseurl }}{{ food.url }}) — *{{ food.continent }}* ({{ food.substrate_category }}, {{ food.fermentation_type }})
 {% endfor %}
