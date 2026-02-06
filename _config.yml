@@ -4,6 +4,7 @@ title: World Fermented Foods
 header_pages:
   - index.md
   - foods.md
+  - map.md
 description: >
   An open, curated global database of traditional fermented foods,
   their substrates, fermentation types, and associated microbiota.
