@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Ogi",
+    "lat": 9.0820,
+    "lon": 8.6753,
+    "url": "/World-Fermented-Foods/foods/ogi/"
+  },
+  {
+    "name": "Kimchi",
+    "lat": 35.9078,
+    "lon": 127.7669,
+    "url": "/World-Fermented-Foods/foods/kimchi/"
+  },
+  {
+    "name": "Sauerkraut",
+    "lat": 51.1657,
+    "lon": 10.4515,
+    "url": "/World-Fermented-Foods/foods/sauerkraut/"
+  },
+  {
+    "name": "Pulque",
+    "lat": 19.4326,
+    "lon": -99.1332,
+    "url": "/World-Fermented-Foods/foods/pulque/"
+  },
+  {
+    "name": "Kava",
+    "lat": -17.7134,
+    "lon": 178.0650,
+    "url": "/World-Fermented-Foods/foods/kava/"
+  }
+]
