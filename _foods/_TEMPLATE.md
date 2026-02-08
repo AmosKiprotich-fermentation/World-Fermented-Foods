@@ -8,6 +8,8 @@ substrate_detail:
 product_type:
 fermentation_type: Spontaneous
 dominant_microbes:
+lat:
+lon:
 ---
 
 ## Description
