@@ -1,0 +1,25 @@
+/* Global polish */
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.55;
+}
+
+/* Header tighter + cleaner */
+.site-header {
+  border-top: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding: 10px 0;
+}
+
+.site-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Reduce huge whitespace under header */
+.page-content {
+  padding-top: 12px;
+}
+
+h1 { letter-spacing: -0.03em; }
+h2 { margin-top: 1.2em; }
