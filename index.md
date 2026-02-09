@@ -1,6 +1,6 @@
 ---
-layout: home
-title: World Fermented Foods
+layout: page
+title: Home
 ---
 
 An open, curated global database of traditional fermented foods,
