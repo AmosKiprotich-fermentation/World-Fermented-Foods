@@ -3,8 +3,6 @@ layout: page
 title: Browse Foods
 ---
 
-## Global Fermented Foods Index
-
 {% assign sorted_foods = site.foods | sort: "title" %}
 
 {% for food in sorted_foods %}
