@@ -47,6 +47,17 @@ title: World Fermented Foods Map
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
+
+  /* Pro cluster styling */
+  .marker-cluster-custom {
+    border-radius: 999px;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    border: 2px solid rgba(255,255,255,0.9);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    user-select: none;
+  }
 </style>
 
 <div class="map-toolbar">
@@ -124,29 +135,6 @@ title: World Fermented Foods Map
     return "#7f7f7f";
   }
 
-  const clusters = L.markerClusterGroup({
-    showCoverageOnHover: false,
-    spiderfyOnMaxZoom: true,
-    disableClusteringAtZoom: 7
-  });
-
-  function makeMarker(food) {
-    const col = colorForContinent(food.continent);
-    return L.circleMarker([food.lat, food.lon], {
-      radius: 5,
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.85,
-      color: col,
-      fillColor: col
-    }).bindPopup(
-      `<b>${escapeHtml(food.title)}</b><br>` +
-      `${escapeHtml(food.continent)}<br>` +
-      `${escapeHtml(food.substrate)} — ${escapeHtml(food.fermentation)}<br>` +
-      `<a href="${food.url}">View entry</a>`
-    );
-  }
-
   function escapeHtml(s) {
     return String(s ?? "")
       .replaceAll("&", "&amp;")
@@ -156,6 +144,78 @@ title: World Fermented Foods Map
       .replaceAll("'", "&#039;");
   }
 
+  // ---------- Pro cluster group ----------
+  const clusters = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    spiderfyOnMaxZoom: true,
+    disableClusteringAtZoom: 7,
+
+    iconCreateFunction: function (cluster) {
+      const children = cluster.getAllChildMarkers();
+
+      // Count markers by continent
+      const counts = {};
+      for (const m of children) {
+        const c = (m.options.continent || "Other");
+        counts[c] = (counts[c] || 0) + 1;
+      }
+
+      // Majority continent determines cluster color
+      let major = "Other";
+      let max = -1;
+      for (const [k, v] of Object.entries(counts)) {
+        if (v > max) { max = v; major = k; }
+      }
+      const col = colorForContinent(major);
+
+      // Tooltip breakdown
+      const breakdown = Object.entries(counts)
+        .sort((a,b) => b[1] - a[1])
+        .map(([k,v]) => `${k}: ${v}`)
+        .join(" | ");
+
+      // Cluster size styling
+      const n = children.length;
+      let size = 34;
+      if (n >= 20) size = 46;
+      else if (n >= 10) size = 40;
+
+      const html = `
+        <div class="marker-cluster-custom"
+             title="${breakdown.replace(/"/g, '&quot;')}"
+             style="background:${col}; width:${size}px; height:${size}px; line-height:${size}px;">
+          ${n}
+        </div>`;
+
+      return L.divIcon({
+        html,
+        className: "",        // use our own HTML class
+        iconSize: [size, size]
+      });
+    }
+  });
+
+  function makeMarker(food) {
+    const col = colorForContinent(food.continent);
+
+    return L.circleMarker([food.lat, food.lon], {
+      radius: 5,
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.85,
+      color: col,
+      fillColor: col,
+
+      // critical: used for cluster majority + breakdown
+      continent: food.continent
+    }).bindPopup(
+      `<b>${escapeHtml(food.title)}</b><br>` +
+      `${escapeHtml(food.continent)}<br>` +
+      `${escapeHtml(food.substrate)} — ${escapeHtml(food.fermentation)}<br>` +
+      `<a href="${food.url}">View entry</a>`
+    );
+  }
+
   // ---------- Filters UI ----------
   const elCont = document.getElementById("filterContinent");
   const elSub  = document.getElementById("filterSubstrate");
@@ -163,10 +223,11 @@ title: World Fermented Foods Map
   const elReset = document.getElementById("resetBtn");
 
   function uniqSorted(values) {
-    return Array.from(new Set(values.map(v => (v || "Other").trim()))).sort((a,b) => a.localeCompare(b));
+    return Array.from(new Set(values.map(v => (v || "Other").trim())))
+      .sort((a,b) => a.localeCompare(b));
   }
 
-  function fillSelect(el, options, labelAll = "All") {
+  function fillSelect(el, options, labelAll) {
     el.innerHTML = "";
     const optAll = document.createElement("option");
     optAll.value = "";
@@ -198,7 +259,6 @@ title: World Fermented Foods Map
 
     clusters.clearLayers();
     for (const item of visible) clusters.addLayer(makeMarker(item));
-
     if (!map.hasLayer(clusters)) map.addLayer(clusters);
 
     updateStats(visible);
@@ -215,7 +275,8 @@ title: World Fermented Foods Map
       .map(([k,v]) => `<span style="color:${colorForContinent(k)}">●</span> ${escapeHtml(k)}: <b>${v}</b>`)
       .join("<br>");
 
-    document.getElementById("statByContinent").innerHTML = lines || "<span class='small'>No points match the current filters.</span>";
+    document.getElementById("statByContinent").innerHTML =
+      lines || "<span style='opacity:0.8;font-size:12px;'>No points match the current filters.</span>";
   }
 
   elCont.addEventListener("change", render);
