@@ -23,3 +23,107 @@ body {
 
 h1 { letter-spacing: -0.03em; }
 h2 { margin-top: 1.2em; }
+/* --- Home pro styling --- */
+.hero{
+  padding: 26px 22px;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.00));
+  margin: 10px 0 18px 0;
+}
+.hero h1{
+  margin: 0 0 10px 0;
+  font-size: 44px;
+  line-height: 1.1;
+}
+.lead{
+  font-size: 18px;
+  opacity: 0.85;
+  max-width: 900px;
+  margin: 0 0 16px 0;
+}
+
+.cta-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 16px 0;
+}
+
+.btn{
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.15);
+  text-decoration: none;
+  font-weight: 600;
+}
+.btn-primary{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.btn-ghost{
+  background: #fff;
+  color: #111;
+}
+.btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.stats-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+}
+.stat{
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 14px;
+  padding: 10px 12px;
+  min-width: 190px;
+}
+.stat-num{
+  font-size: 26px;
+  font-weight: 800;
+}
+.stat-label{
+  font-size: 12px;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+.card-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 18px 0 10px 0;
+}
+.card{
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 16px;
+  padding: 14px 14px;
+  background: #fff;
+}
+.card-title{
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.card-body{
+  opacity: 0.85;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.soft-rule{
+  border: none;
+  height: 1px;
+  background: rgba(0,0,0,0.10);
+  margin: 18px 0;
+}
+
+.quick-links ul{
+  margin-top: 8px;
+}
