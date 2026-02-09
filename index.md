@@ -2,6 +2,9 @@
 layout: page
 title: Home
 ---
+<img class="hero-img"
+     src="{{ '/assets/img/hero.jpg' | relative_url }}"
+     alt="World Fermented Foods">
 
 <div class="hero">
   <div class="hero-text">
