@@ -2,6 +2,7 @@
 layout: page
 title: Home
 ---
+
 <img class="hero-img"
      src="{{ '/assets/img/hero.jpg' | relative_url }}"
      alt="World Fermented Foods">
@@ -21,7 +22,14 @@ title: Home
 
     <div class="stats-row">
       {% assign total_foods = site.foods | size %}
-      {% assign with_coords = site.foods | where_exp: "f", "f.lat and f.lon" | size %}
+      {% assign with_coords = 0 %}
+
+      {% for f in site.foods %}
+        {% if f.lat and f.lon %}
+          {% assign with_coords = with_coords | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+
       <div class="stat">
         <div class="stat-num">{{ total_foods }}</div>
         <div class="stat-label">Total entries</div>
@@ -41,15 +49,21 @@ title: Home
 <div class="card-grid">
   <div class="card">
     <div class="card-title">Structured metadata</div>
-    <div class="card-body">Each entry captures continent, substrate category, fermentation type, dominant microbes, and references.</div>
+    <div class="card-body">
+      Each entry captures continent, substrate category, fermentation type, dominant microbes, and references.
+    </div>
   </div>
   <div class="card">
     <div class="card-title">Research-ready</div>
-    <div class="card-body">Designed for comparative microbiology, food science learning, and reproducible citation practices.</div>
+    <div class="card-body">
+      Designed for comparative microbiology, food science learning, and reproducible citation practices.
+    </div>
   </div>
   <div class="card">
     <div class="card-title">Interactive map</div>
-    <div class="card-body">Explore foods geographically and filter by continent, substrate, and fermentation type.</div>
+    <div class="card-body">
+      Explore foods geographically and filter by continent, substrate, and fermentation type.
+    </div>
   </div>
 </div>
 
