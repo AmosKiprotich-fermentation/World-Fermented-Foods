@@ -4,93 +4,171 @@ title: World Fermented Foods Map
 ---
 
 <style>
-  .map-toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: flex-end;
-    margin: 10px 0 14px 0;
-    padding: 12px;
-    border: 1px solid rgba(0,0,0,0.12);
-    border-radius: 10px;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(6px);
+  :root{
+    --border: rgba(0,0,0,0.12);
+    --border2: rgba(0,0,0,0.18);
+    --shadow: 0 2px 10px rgba(0,0,0,0.10);
+    --shadow2: 0 6px 18px rgba(0,0,0,0.14);
+    --radius: 12px;
   }
-  .map-toolbar .group { display: flex; flex-direction: column; gap: 6px; min-width: 220px; }
-  .map-toolbar label { font-size: 12px; opacity: 0.8; }
-  .map-toolbar select, .map-toolbar button {
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.18);
-    background: white;
-    font-size: 14px;
+
+  .map-intro{
+    max-width: 980px;
+    margin: 6px 0 12px 0;
+    opacity: 0.88;
+    line-height: 1.45;
   }
-  .map-toolbar button { cursor: pointer; }
-  .stats {
-    display: flex;
-    flex-wrap: wrap;
+
+  .map-grid{
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 12px;
     margin: 10px 0 14px 0;
   }
-  .stat-card {
-    border: 1px solid rgba(0,0,0,0.12);
-    border-radius: 10px;
-    padding: 10px 12px;
-    background: white;
-    min-width: 220px;
+
+  .panel{
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow);
+    padding: 12px;
   }
-  .stat-card .big { font-size: 22px; font-weight: 700; }
-  .stat-card .small { font-size: 12px; opacity: 0.8; }
-  .legend {
-    background: white;
-    padding: 10px;
+
+  .map-toolbar{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+    gap: 10px;
+    align-items: end;
+  }
+  @media (max-width: 900px){
+    .map-toolbar{ grid-template-columns: repeat(2, minmax(180px, 1fr)); }
+  }
+  @media (max-width: 520px){
+    .map-toolbar{ grid-template-columns: 1fr; }
+  }
+
+  .group{ display:flex; flex-direction:column; gap:6px; }
+  label{ font-size: 12px; opacity: 0.82; }
+
+  select, button{
+    padding: 9px 10px;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border: 1px solid var(--border2);
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  button{ cursor: pointer; }
+  button:hover{ box-shadow: 0 1px 6px rgba(0,0,0,0.10); }
+  select:focus, button:focus{
+    outline: 2px solid rgba(31,119,180,0.35);
+    outline-offset: 2px;
+  }
+
+  .stats{
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 900px){
+    .stats{ grid-template-columns: 1fr; }
+  }
+
+  .stat-card .big{ font-size: 24px; font-weight: 750; letter-spacing: -0.02em; }
+  .stat-card .small{ font-size: 12px; opacity: 0.78; margin-bottom: 6px; }
+
+  .legend{
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: var(--shadow2);
+    border: 1px solid var(--border);
   }
 
   /* Pro cluster styling */
-  .marker-cluster-custom {
+  .marker-cluster-custom{
     border-radius: 999px;
-    color: white;
-    font-weight: 700;
+    color: #fff;
+    font-weight: 750;
     text-align: center;
-    border: 2px solid rgba(255,255,255,0.9);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    border: 2px solid rgba(255,255,255,0.95);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.22);
     user-select: none;
+  }
+
+  /* nicer Leaflet popup typography */
+  .leaflet-popup-content{
+    margin: 10px 12px;
+    line-height: 1.35;
+  }
+  .popup-title{
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .popup-meta{
+    opacity: 0.85;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  .popup-link a{
+    text-decoration: none;
+    font-weight: 650;
+  }
+
+  .note{
+    font-size: 12px;
+    opacity: 0.72;
+    margin-top: 6px;
   }
 </style>
 
-<div class="map-toolbar">
-  <div class="group">
-    <label for="filterContinent">Continent</label>
-    <select id="filterContinent"></select>
+<p class="map-intro">
+An open, curated database of traditional fermented foods, organised by substrate, fermentation type, and geographic origin.
+Use the filters to explore patterns across regions and fermentation systems.
+</p>
+
+<div class="map-grid">
+  <div class="panel">
+    <div class="map-toolbar">
+      <div class="group">
+        <label for="filterContinent">Continent</label>
+        <select id="filterContinent"></select>
+      </div>
+      <div class="group">
+        <label for="filterSubstrate">Substrate category</label>
+        <select id="filterSubstrate"></select>
+      </div>
+      <div class="group">
+        <label for="filterFermentation">Fermentation type</label>
+        <select id="filterFermentation"></select>
+      </div>
+      <div class="group">
+        <label>&nbsp;</label>
+        <button id="resetBtn" aria-label="Reset filters">Reset</button>
+      </div>
+    </div>
   </div>
-  <div class="group">
-    <label for="filterSubstrate">Substrate category</label>
-    <select id="filterSubstrate"></select>
+
+  <div class="stats">
+    <div class="panel stat-card">
+      <div class="small">Foods plotted (with coordinates)</div>
+      <div class="big" id="statTotal">0</div>
+      <div class="note">Filtered totals update live.</div>
+    </div>
+
+    <div class="panel stat-card">
+      <div class="small">By continent (visible)</div>
+      <div id="statByContinent" style="font-size:14px; line-height:1.55;"></div>
+    </div>
   </div>
-  <div class="group">
-    <label for="filterFermentation">Fermentation type</label>
-    <select id="filterFermentation"></select>
-  </div>
-  <div class="group" style="min-width:140px;">
-    <label>&nbsp;</label>
-    <button id="resetBtn">Reset</button>
+
+  <div id="map" style="height: 650px; width: 100%; border-radius: 14px; border: 1px solid var(--border); box-shadow: var(--shadow2);"></div>
+
+  <div class="note">
+    Note: only foods with <code>lat</code> and <code>lon</code> appear on the map. You can fill missing coordinates later.
   </div>
 </div>
-
-<div class="stats">
-  <div class="stat-card">
-    <div class="small">Foods plotted (with coordinates)</div>
-    <div class="big" id="statTotal">0</div>
-  </div>
-  <div class="stat-card">
-    <div class="small">By continent (visible)</div>
-    <div id="statByContinent" style="font-size:14px; line-height:1.5;"></div>
-  </div>
-</div>
-
-<div id="map" style="height: 650px; width: 100%; border-radius: 12px;"></div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -144,7 +222,7 @@ title: World Fermented Foods Map
       .replaceAll("'", "&#039;");
   }
 
-  // ---------- Pro cluster group ----------
+  // ---------- Pro cluster group (majority continent color + breakdown tooltip) ----------
   const clusters = L.markerClusterGroup({
     showCoverageOnHover: false,
     spiderfyOnMaxZoom: true,
@@ -153,14 +231,12 @@ title: World Fermented Foods Map
     iconCreateFunction: function (cluster) {
       const children = cluster.getAllChildMarkers();
 
-      // Count markers by continent
       const counts = {};
       for (const m of children) {
         const c = (m.options.continent || "Other");
         counts[c] = (counts[c] || 0) + 1;
       }
 
-      // Majority continent determines cluster color
       let major = "Other";
       let max = -1;
       for (const [k, v] of Object.entries(counts)) {
@@ -168,13 +244,11 @@ title: World Fermented Foods Map
       }
       const col = colorForContinent(major);
 
-      // Tooltip breakdown
       const breakdown = Object.entries(counts)
         .sort((a,b) => b[1] - a[1])
         .map(([k,v]) => `${k}: ${v}`)
         .join(" | ");
 
-      // Cluster size styling
       const n = children.length;
       let size = 34;
       if (n >= 20) size = 46;
@@ -189,31 +263,32 @@ title: World Fermented Foods Map
 
       return L.divIcon({
         html,
-        className: "",        // use our own HTML class
+        className: "",
         iconSize: [size, size]
       });
     }
   });
 
+  function popupHtml(food){
+    return `
+      <div class="popup-title">${escapeHtml(food.title)}</div>
+      <div class="popup-meta">${escapeHtml(food.continent)} • ${escapeHtml(food.substrate)} • ${escapeHtml(food.fermentation)}</div>
+      <div class="popup-link"><a href="${food.url}">Open entry →</a></div>
+    `;
+  }
+
   function makeMarker(food) {
     const col = colorForContinent(food.continent);
 
     return L.circleMarker([food.lat, food.lon], {
-      radius: 5,
+      radius: 4,          // slightly smaller = cleaner
       weight: 1,
       opacity: 1,
-      fillOpacity: 0.85,
+      fillOpacity: 0.80,
       color: col,
       fillColor: col,
-
-      // critical: used for cluster majority + breakdown
       continent: food.continent
-    }).bindPopup(
-      `<b>${escapeHtml(food.title)}</b><br>` +
-      `${escapeHtml(food.continent)}<br>` +
-      `${escapeHtml(food.substrate)} — ${escapeHtml(food.fermentation)}<br>` +
-      `<a href="${food.url}">View entry</a>`
-    );
+    }).bindPopup(popupHtml(food));
   }
 
   // ---------- Filters UI ----------
@@ -276,7 +351,7 @@ title: World Fermented Foods Map
       .join("<br>");
 
     document.getElementById("statByContinent").innerHTML =
-      lines || "<span style='opacity:0.8;font-size:12px;'>No points match the current filters.</span>";
+      lines || "<span style='opacity:0.75;font-size:12px;'>No points match the current filters.</span>";
   }
 
   elCont.addEventListener("change", render);
@@ -309,7 +384,3 @@ title: World Fermented Foods Map
   };
   legend.addTo(map);
 </script>
-
-<p style="margin-top:10px; opacity:0.8;">
-  Note: only foods with <code>lat</code> and <code>lon</code> appear on the map. You can fill missing coordinates later.
-</p>
