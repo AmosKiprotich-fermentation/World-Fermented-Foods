@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Fermented Foods
+title: Browse Foods
 ---
 
 ## Global Fermented Foods Index
