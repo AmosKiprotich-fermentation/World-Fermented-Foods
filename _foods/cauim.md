@@ -3,40 +3,41 @@ layout: page
 title: Cauim
 continent: Americas
 countries: Brazil
-substrate_category: Cassava
+substrate_category: Root/Tuber (Cassava)
 fermentation_type: Alcoholic–lactic mixed fermentation (spontaneous)
-dominant_microbes: Lactic acid bacteria, Yeasts
+dominant_microbes: Yeasts, Lactic acid bacteria
+ref_tags: [ethnography, microbiology, food_science]
 lat: -3.1
 lon: -60.0
 ---
 
 ## Overview
-**Cauim** is a traditional Indigenous fermented beverage from Brazil, produced primarily from cassava. It is mildly alcoholic and acidic, and historically formed an important part of social and ceremonial life among several Amazonian communities.
+Cauim is a traditional fermented beverage produced by Indigenous communities in Brazil. It is commonly made from cassava and undergoes spontaneous fermentation, resulting in a mildly alcoholic drink.
 
 ## Raw Materials
 - Cassava roots (*Manihot esculenta*)
-- Water  
-- Saliva (traditional preparation; provides amylolytic enzymes)
+- Water
+- Saliva or environmental inoculum (traditional practice)
 
 ## Fermentation Process
-Cassava roots are peeled, cooked, and mashed. In traditional practice, portions of the mash are chewed and returned to the mixture to introduce salivary amylases, which hydrolyse starch into fermentable sugars. The mash is then diluted with water and fermented spontaneously for **1–3 days**, producing a lightly alcoholic beverage.
+Cassava is cooked, mashed, and mixed with water. In some traditional practices, mastication introduces fermentative microorganisms. The mixture is allowed to ferment naturally for 1–3 days before consumption.
 
 ## Microbial Ecology
-Cauim fermentation involves a mixed microbial community including:
-- Lactic acid bacteria (*Lactobacillus* spp.)
-- Yeasts (various fermentative species)
+Fermentation is dominated by:
+- Yeasts
+- Lactic acid bacteria
 
-This mixed ecology results in ethanol production, acidification, and flavour development.
+These microorganisms convert carbohydrates into ethanol and organic acids.
 
 ## Functional and Nutritional Aspects
-- Conversion of starch into fermentable sugars  
-- Reduction of cyanogenic compounds through processing  
-- Provides energy and hydration  
+- Partial detoxification of cassava  
+- Production of organic acids and ethanol  
+- Enhanced palatability  
 
 ## Cultural Significance
-Cauim holds strong cultural importance among Indigenous Amazonian peoples and reflects traditional biochemical knowledge of starch conversion and fermentation long before the introduction of industrial starters.
+Cauim holds ceremonial and social importance among Indigenous groups and represents one of the oldest documented fermentation practices in South America.
 
 ## References
-1. Steinkraus, K. H. (1996). **Handbook of Indigenous Fermented Foods**. Marcel Dekker, New York.  
-2. Nout, M. J. R., & Sarkar, P. K. (1999). *Lactic acid food fermentation in tropical climates*. Antonie van Leeuwenhoek, 76, 395–401.  
-3. McGee, H. (2004). **On Food and Cooking: The Science and Lore of the Kitchen**. Scribner.
+1. McGovern, P. E. (2009). *Uncorking the Past*. University of California Press.
+2. Steinkraus, K. H. (1996). *Handbook of Indigenous Fermented Foods*. Marcel Dekker.
+3. Tamang, J. P. (2010). *Fermented Foods and Beverages of the World*. CRC Press.
