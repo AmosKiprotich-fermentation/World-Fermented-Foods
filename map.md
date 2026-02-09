@@ -1,6 +1,6 @@
 ---
 layout: page
-title: World Fermented Foods Map
+title: Explore Map
 ---
 
 <style>
